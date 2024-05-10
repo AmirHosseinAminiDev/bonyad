@@ -2,14 +2,15 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home.page');
 
-Route::prefix('/admin-panel')->group(function () {
-    Route::get('/', [AdminController::class, 'index']);
+Route::prefix('/admin-panel')->middleware(['auth', IsAdmin::class])->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 });
 
 Route::get('/dashboard', function () {
