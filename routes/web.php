@@ -19,7 +19,7 @@ Route::prefix('/admin-panel')->middleware(['auth', IsAdmin::class])->group(funct
         Route::get('/create', [UserController::class, 'create'])->name('users.create');
         Route::post('/create', [UserController::class, 'store'])->name('users.store');
         Route::get('/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
-        Route::post('/update/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::put('/update/{user}', [UserController::class, 'update'])->name('users.update');
         Route::delete('/delete/{user}', [UserController::class, 'destroy'])->name('users.delete');
     });
 

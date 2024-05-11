@@ -21,29 +21,48 @@
             <!-- /.card-header -->
             <form action="{{ route('users.update',$user) }}" method="POST" class="p-3">
                 @csrf
+                @method('PUT')
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <input type="text" name="name" value="{{ $user->name ?? '' }}" id="" class="form-control" placeholder="نام">
+                        @error('name')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <input type="text" value="{{ $user->last_name ?? '' }}" name="last_name" id="" class="form-control" placeholder="نام خانوادگی">
+                        @error('last_name')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <input type="text" value="{{ $user->phone ?? '' }}" name="phone" id="" class="form-control" placeholder="تلفن">
+                        @error('phone')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <input type="text" value="{{ $user->national_code ?? '' }}" name="national_code" id="" class="form-control" placeholder="کد ملی">
+                        @error('national_code')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <input type="text" name="email" value="{{ $user->email ?? '' }}" id="" class="form-control" placeholder="ایمیل">
+                        @error('email')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-3">
                         <input type="password" name="password" id="" class="form-control" placeholder="رمز عبور">
                     </div>
+                    @error('password')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                     <div class="col-md-3">
                         <input type="password" name="password_confirmation" id="" class="form-control" placeholder="تکرار رمز عبور">
                     </div>
