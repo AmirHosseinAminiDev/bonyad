@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -84,6 +85,9 @@ class UserController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
+        if (auth()->user()->id == $user->id) {
+            Auth::logout();
+        }
         $user->delete();
         return redirect()->back()->with('success', 'کاربر مورد نظر حذف شد');
     }
