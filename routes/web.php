@@ -1,6 +1,7 @@
 `<?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Documents\DocumentsController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
@@ -21,6 +22,11 @@ Route::prefix('/admin-panel')->middleware(['auth', IsAdmin::class])->group(funct
         Route::get('/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
         Route::put('/update/{user}', [UserController::class, 'update'])->name('users.update');
         Route::delete('/delete/{user}', [UserController::class, 'destroy'])->name('users.delete');
+    });
+
+    //    DOCS ROUTES //
+    Route::prefix('/docs')->group(function () {
+        Route::post('/create', [DocumentsController::class, 'store'])->name('docs.store');
     });
 
 });

@@ -20,5 +20,6 @@ class Documents extends Model
         'war_document',
         'active_basij',
         'marriage_status',
+        'children_count'
     ];
 }
