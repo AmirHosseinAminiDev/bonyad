@@ -19,27 +19,27 @@
                 </div>
             </div>
             <!-- /.card-header -->
-            <form action="{{ route('users.store') }}" method="POST" class="p-3">
+            <form action="{{ route('users.update',$user) }}" method="POST" class="p-3">
                 @csrf
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <input type="text" name="name" id="" class="form-control" placeholder="نام">
+                        <input type="text" name="name" value="{{ $user->name ?? '' }}" id="" class="form-control" placeholder="نام">
                     </div>
                     <div class="col-md-6">
-                        <input type="text" name="last_name" id="" class="form-control" placeholder="نام خانوادگی">
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-6">
-                        <input type="text" name="phone" id="" class="form-control" placeholder="تلفن">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" name="national_code" id="" class="form-control" placeholder="کد ملی">
+                        <input type="text" value="{{ $user->last_name ?? '' }}" name="last_name" id="" class="form-control" placeholder="نام خانوادگی">
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <input type="text" name="email" id="" class="form-control" placeholder="ایمیل">
+                        <input type="text" value="{{ $user->phone ?? '' }}" name="phone" id="" class="form-control" placeholder="تلفن">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" value="{{ $user->national_code ?? '' }}" name="national_code" id="" class="form-control" placeholder="کد ملی">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <input type="text" name="email" value="{{ $user->email ?? '' }}" id="" class="form-control" placeholder="ایمیل">
                     </div>
                     <div class="col-md-3">
                         <input type="password" name="password" id="" class="form-control" placeholder="رمز عبور">
