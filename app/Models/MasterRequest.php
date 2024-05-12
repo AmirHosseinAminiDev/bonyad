@@ -11,6 +11,7 @@ class MasterRequest extends Model
     use HasFactory;
 
     protected $fillable = [
+        'document_id',
         'status'
     ];
 

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    @stack('select')
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
@@ -53,6 +54,9 @@
         @if(session()->has('success'))
             <div class="alert alert-success">{{ session()->get('success') }}</div>
         @endif
+        @if(session()->has('error'))
+            <div class="alert alert-danger">{{ session()->get('error') }}</div>
+        @endif
         @yield('content')
 
     </div>
@@ -74,6 +78,7 @@
 <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+@stack('select-scripts')
 <!-- SlimScroll -->
 <script src="{{ asset('admin/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->

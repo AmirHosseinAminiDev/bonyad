@@ -6,7 +6,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">@yield('title') <a href="{{ route('users.create') }}" class="btn btn-primary">ایجاد
+                <h3 class="card-title">@yield('title') <a href="{{ route('teachers.create') }}" class="btn btn-primary">ایجاد
                         استاد جدید</a></h3>
 
                 <div class="card-tools">
