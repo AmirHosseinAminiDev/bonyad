@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RequestsStatus;
+use App\Models\Documents;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,9 +18,22 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'last_name' => 'test',
+            'email' => 'amirhosseinaminidev@gmail.com',
+            'is_admin' => 1,
+            'password' => bcrypt('password'),
+        ]);
+
+        $document = Documents::create([
+            'major' => fake()->name,
+            'education_level' => fake()->name,
+        ]);
+
+        $user->masterRequest()->create([
+            'status' => RequestsStatus::INPROGRESS->value,
+            'document_id' => $document->id
         ]);
     }
 }

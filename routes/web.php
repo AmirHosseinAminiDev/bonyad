@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Documents\DocumentsController;
+use App\Http\Controllers\Admin\MasterRequests\MasterRequestController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
@@ -27,6 +28,13 @@ Route::prefix('/admin-panel')->middleware(['auth', IsAdmin::class])->group(funct
     //    DOCS ROUTES //
     Route::prefix('/docs')->group(function () {
         Route::post('/create', [DocumentsController::class, 'store'])->name('docs.store');
+    });
+
+    //    REQUESTS ROUTES //
+    Route::prefix('/master-requests')->group(function () {
+        Route::get('/', [MasterRequestController::class, 'index'])->name('requests.index');
+        Route::get('/{masterRequest}', [MasterRequestController::class, 'edit'])->name('requests.edit');
+        Route::put('/{masterRequest}', [MasterRequestController::class, 'update'])->name('requests.update');
     });
 
 });

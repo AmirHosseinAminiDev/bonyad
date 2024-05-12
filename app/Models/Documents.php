@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Documents extends Model
 {
@@ -22,4 +23,12 @@ class Documents extends Model
         'marriage_status',
         'children_count'
     ];
+
+    /**
+     * @return HasOne
+     */
+    public function masterRequest(): HasOne
+    {
+        return $this->hasOne(MasterRequest::class);
+    }
 }

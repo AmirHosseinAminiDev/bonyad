@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -54,5 +55,13 @@ class User extends Authenticatable
     public function fullName()
     {
         return $this->name . ' ' . $this->last_name;
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function masterRequest(): HasOne
+    {
+        return $this->hasOne(MasterRequest::class);
     }
 }

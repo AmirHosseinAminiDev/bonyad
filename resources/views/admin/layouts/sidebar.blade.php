@@ -35,6 +35,15 @@
                             </p>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('requests.index') }}" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                درخواست ها
+                            </p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
