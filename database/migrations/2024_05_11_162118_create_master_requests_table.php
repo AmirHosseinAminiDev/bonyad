@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\RequestsStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,6 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('document_id');
+            $table->enum('status', [RequestsStatus::REJECTED->value, RequestsStatus::ACCEPTED->value, RequestsStatus::INPROGRESS]);
             $table->timestamps();
         });
     }
