@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Documents\DocumentsController;
 use App\Http\Controllers\Admin\MasterRequests\MasterRequestController;
+use App\Http\Controllers\Admin\Teachers\TeacherController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
@@ -35,6 +36,11 @@ Route::prefix('/admin-panel')->middleware(['auth', IsAdmin::class])->group(funct
         Route::get('/', [MasterRequestController::class, 'index'])->name('requests.index');
         Route::get('/{masterRequest}', [MasterRequestController::class, 'edit'])->name('requests.edit');
         Route::put('/{masterRequest}', [MasterRequestController::class, 'update'])->name('requests.update');
+    });
+
+    // TEACHERS ROUTES //
+    Route::prefix('/teachers')->group(function () {
+        Route::get('/', [TeacherController::class, 'index'])->name('teachers.index');
     });
 
 });

@@ -13,7 +13,9 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.teachers.index', [
+            'teachers' => Teacher::all()
+        ]);
     }
 
     /**
@@ -45,7 +47,9 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        //
+        return view('admin.teachers.edit', [
+            'teacher' => $teacher
+        ]);
     }
 
     /**

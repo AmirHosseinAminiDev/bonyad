@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\RequestsStatus;
+use App\Enums\TeachersStatus;
 use App\Models\Documents;
 use App\Models\User;
 
@@ -19,6 +20,9 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         DB::table('users')->truncate();
+        DB::table('documents')->truncate();
+        DB::table('master_requests')->truncate();
+        DB::table('teachers')->truncate();
         $user = User::factory()->create([
             'name' => 'Test User',
             'last_name' => 'test',
@@ -35,6 +39,10 @@ class DatabaseSeeder extends Seeder
         $user->masterRequest()->create([
             'status' => RequestsStatus::INPROGRESS->value,
             'document_id' => $document->id
+        ]);
+
+        $user->teacher()->create([
+            'status' => TeachersStatus::ACTIVE
         ]);
     }
 }
