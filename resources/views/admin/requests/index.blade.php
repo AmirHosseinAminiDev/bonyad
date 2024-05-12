@@ -11,10 +11,11 @@
 
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                        <form action="">
+                        <form action="{{ route('requests.index') }}" method="get">
                             <div class="row">
                                 <div class="col-md-12">
                                     <select name="type" id="filter" class="form-control">
+                                        <option value="" selected>فیلتر</option>
                                         <option value="all">همه</option>
                                         <option value="{{ \App\Enums\RequestsStatus::ACCEPTED }}">تایید شده ها</option>
                                         <option value="{{ \App\Enums\RequestsStatus::REJECTED }}">رد شده ها</option>

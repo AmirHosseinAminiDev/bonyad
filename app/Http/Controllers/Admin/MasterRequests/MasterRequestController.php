@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin\MasterRequests;
 use App\Enums\RequestsStatus;
 use App\Http\Controllers\Controller;
 use App\Models\MasterRequest;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
 class MasterRequestController extends Controller
@@ -12,8 +15,20 @@ class MasterRequestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        if ($request->has('type'))
+        {
+            if ($request->get('type') == RequestsStatus::ALL->value)
+            {
+                return view('admin.requests.index', [
+                    'requests' => MasterRequest::all()
+                ]);
+            }
+            return  view('admin.requests.index',[
+                'requests' => MasterRequest::where('status',$request->get('type'))->get()
+            ]);
+        }
         return view('admin.requests.index', [
             'requests' => MasterRequest::all()
         ]);
@@ -66,7 +81,7 @@ class MasterRequestController extends Controller
             $masterRequest->update([
                 'status' => RequestsStatus::REJECTED->value
             ]);
-        }else{
+        } else {
             $masterRequest->update([
                 'status' => RequestsStatus::INPROGRESS->value
             ]);

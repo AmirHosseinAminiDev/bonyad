@@ -9,4 +9,6 @@ enum RequestsStatus: string
     case INPROGRESS = 'in-progress';
 
     case REJECTED = 'rejected';
+
+    case ALL = 'all';
 }
