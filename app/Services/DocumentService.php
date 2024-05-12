@@ -28,7 +28,7 @@ class DocumentService
     {
         $fileName = Str::random() . '-' . $file->getClientOriginalName();
         $file->move(public_path() . $path, $fileName);
-        $destination = explode(',',$fileName);
+        $destination = explode('/',$path);
         if ($destination[1] == 'active_basij')
         {
             $doc->update([
