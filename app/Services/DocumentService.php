@@ -28,6 +28,13 @@ class DocumentService
     {
         $fileName = Str::random() . '-' . $file->getClientOriginalName();
         $file->move(public_path() . $path, $fileName);
+        $destination = explode(',',$fileName);
+        if ($destination[1] == 'active_basij')
+        {
+            $doc->update([
+                'active_basij' => $fileName
+            ]);
+        }
         $doc->update([
             'war_history' => $fileName
         ]);
