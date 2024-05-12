@@ -39,10 +39,18 @@
                             <td>{{ $teacher->user->phone ?? 'ندارد' }}</td>
                             <td>
                                 @if($teacher->status == \App\Enums\TeachersStatus::ACTIVE->value)
-                                    <span class="badge badge-success">فعال</span>
+                                    <span class="badge badge-success"
+                                          onclick="showConfirmationTeacher()"
+                                    >فعال</span>
                                 @else
-                                    <span class="badge badge-danger">غیر فعال</span>
+                                    <span class="badge badge-danger"
+                                          onclick="showConfirmationTeacher()">غیر فعال</span>
                                 @endif
+                                <form action="{{ route('teachers.status',$teacher) }}" id="teachersStatus"
+                                      class="d-none" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                </form>
                             </td>
                             <td>
                                 <div class="row">
@@ -82,5 +90,11 @@
         $("#delete-form").on("submit", function () {
             return confirm("آیا مطمئن هستید؟");
         });
+
+        function showConfirmationTeacher() {
+            if (confirm('آیا از تغییر وضعیت استاد مطمئن هستید؟')) {
+                document.getElementById('teachersStatus').submit();
+            }
+        }
     </script>
 @endpush

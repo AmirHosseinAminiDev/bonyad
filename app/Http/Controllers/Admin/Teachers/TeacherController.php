@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Teachers;
 
+use App\Enums\TeachersStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -66,5 +67,20 @@ class TeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         //
+    }
+
+    public function status(Teacher $teacher)
+    {
+        if ($teacher->status == TeachersStatus::ACTIVE->value) {
+            $teacher->update([
+                'status' => TeachersStatus::INACTIVE->value
+            ]);
+        } elseif ($teacher->status == TeachersStatus::INACTIVE->value) {
+            $teacher->update([
+                'status' => TeachersStatus::ACTIVE
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'استاد با موفقیت بروز رسانی شد');
     }
 }

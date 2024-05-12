@@ -41,6 +41,7 @@ Route::prefix('/admin-panel')->middleware(['auth', IsAdmin::class])->group(funct
     // TEACHERS ROUTES //
     Route::prefix('/teachers')->group(function () {
         Route::get('/', [TeacherController::class, 'index'])->name('teachers.index');
+        Route::put('/update-status/{teacher}', [TeacherController::class, 'status'])->name('teachers.status');
     });
 
 });
