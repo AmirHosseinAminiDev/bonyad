@@ -43,6 +43,8 @@ Route::prefix('/admin-panel')->middleware(['auth', IsAdmin::class])->group(funct
         Route::get('/', [TeacherController::class, 'index'])->name('teachers.index');
         Route::get('/create', [TeacherController::class, 'create'])->name('teachers.create');
         Route::post('/create', [TeacherController::class, 'store'])->name('teachers.store');
+        Route::get('/edit/{teacher}', [TeacherController::class, 'edit'])->name('teachers.edit');
+        Route::put('/edit/{teacher}', [TeacherController::class, 'update'])->name('teachers.update');
         Route::put('/update-status/{teacher}', [TeacherController::class, 'status'])->name('teachers.status');
     });
 

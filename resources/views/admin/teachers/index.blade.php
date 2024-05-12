@@ -55,8 +55,12 @@
                             <td>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <a href="{{ route('users.edit',$teacher->user) }}"
-                                           class="btn btn-success">نمایش</a>
+                                        <a href="{{ route('teachers.edit',$teacher) }}"
+                                           class="btn btn-success">سوابق</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{{ route('teachers.edit',$teacher) }}"
+                                           class="btn btn-success">ویرایش</a>
                                     </div>
                                     <div class="col-md-4">
                                         <form action="{{ route('users.delete',$teacher) }}" method="POST"
