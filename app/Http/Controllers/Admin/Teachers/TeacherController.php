@@ -138,7 +138,8 @@ class TeacherController extends Controller
             'document_id' => $doc->id,
             'status' => RequestsStatus::ACCEPTED
         ]);
-        $userObj->teacher()->update([
+        $teacher->update([
+            'user_id' => $userObj->id,
             'status' => TeachersStatus::ACTIVE
         ]);
         return redirect()->route('teachers.index')->with('success', 'استاد با موفقیت بروز رسانی شد');
