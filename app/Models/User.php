@@ -64,4 +64,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(MasterRequest::class);
     }
+
+    /**
+     * @return HasOne
+     */
+    public function teacher(): HasOne
+    {
+        return $this->hasOne(Teacher::class);
+    }
 }
