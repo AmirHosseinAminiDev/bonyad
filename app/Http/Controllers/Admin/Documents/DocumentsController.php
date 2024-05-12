@@ -30,7 +30,7 @@ class DocumentsController extends Controller
      */
     public function store(Request $request)
     {
-        $doc = documentService()->createDocumnet($request->all());
+        $doc = documentService()->createDocument($request->all());
         if ($request->has('war_document')) {
             $file = $request->file('war_history');
             $warPath = '/war_history';

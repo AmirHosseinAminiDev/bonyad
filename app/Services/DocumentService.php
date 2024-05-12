@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class DocumentService
 {
 
-    public function createDocumnet(array $data)
+    public function createDocument(array $data)
     {
         $doc = Documents::create([
             'major' => $data['major'],
