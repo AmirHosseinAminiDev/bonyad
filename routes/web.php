@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Documents\DocumentsController;
 use App\Http\Controllers\Admin\MasterRequests\MasterRequestController;
 use App\Http\Controllers\Admin\Teachers\TeacherController;
+use App\Http\Controllers\Admin\Universities\UniversityController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
@@ -46,6 +47,16 @@ Route::prefix('/admin-panel')->middleware(['auth', IsAdmin::class])->group(funct
         Route::get('/edit/{teacher}', [TeacherController::class, 'edit'])->name('teachers.edit');
         Route::put('/edit/{teacher}', [TeacherController::class, 'update'])->name('teachers.update');
         Route::put('/update-status/{teacher}', [TeacherController::class, 'status'])->name('teachers.status');
+    });
+
+    // UNIVERSITIES //
+    Route::prefix('/universities')->group(function () {
+        Route::get('/', [UniversityController::class, 'index'])->name('universities.index');
+        Route::get('/create', [UniversityController::class, 'create'])->name('universities.create');
+        Route::post('/create', [UniversityController::class, 'store'])->name('universities.store');
+        Route::get('/edit/{university}', [UniversityController::class, 'edit'])->name('universities.edit');
+        Route::put('/edit/{university}', [UniversityController::class, 'update'])->name('universities.update');
+        Route::delete('/delete/{university}', [UniversityController::class, 'destroy'])->name('universities.destroy');
     });
 
 });
