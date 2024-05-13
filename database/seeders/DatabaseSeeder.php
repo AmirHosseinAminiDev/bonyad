@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\RequestsStatus;
 use App\Enums\TeachersStatus;
 use App\Models\Documents;
+use App\Models\University;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -43,6 +44,9 @@ class DatabaseSeeder extends Seeder
 
         $user->teacher()->create([
             'status' => TeachersStatus::ACTIVE
+        ]);
+        $university = University::create([
+            'name' => fake()->name
         ]);
     }
 }

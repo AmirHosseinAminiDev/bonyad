@@ -38,7 +38,7 @@
 
                     <li class="nav-item">
                         <a href="{{ route('requests.index') }}" class="nav-link">
-                            <i class="nav-icon fa fa-user"></i>
+                            <i class="nav-icon fa fa-arrow-circle-down"></i>
                             <p>
                                 درخواست ها
                             </p>
@@ -47,7 +47,7 @@
 
                     <li class="nav-item">
                         <a href="{{ route('teachers.index') }}" class="nav-link">
-                            <i class="nav-icon fa fa-university"></i>
+                            <i class="nav-icon fa fa-clipboard"></i>
                             <p>
                                 اساتید
                             </p>
@@ -59,6 +59,15 @@
                             <i class="nav-icon fa fa-university"></i>
                             <p>
                                 دانشگاه ها
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('classes.index') }}" class="nav-link">
+                            <i class="nav-icon fa fa-book"></i>
+                            <p>
+                                کلاس ها
                             </p>
                         </a>
                     </li>

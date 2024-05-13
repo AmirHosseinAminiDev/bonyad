@@ -1,6 +1,7 @@
 `<?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ClassRooms\ClassRoomController;
 use App\Http\Controllers\Admin\Documents\DocumentsController;
 use App\Http\Controllers\Admin\MasterRequests\MasterRequestController;
 use App\Http\Controllers\Admin\Teachers\TeacherController;
@@ -57,6 +58,16 @@ Route::prefix('/admin-panel')->middleware(['auth', IsAdmin::class])->group(funct
         Route::get('/edit/{university}', [UniversityController::class, 'edit'])->name('universities.edit');
         Route::put('/edit/{university}', [UniversityController::class, 'update'])->name('universities.update');
         Route::delete('/delete/{university}', [UniversityController::class, 'destroy'])->name('universities.destroy');
+    });
+
+    // CLASS ROOMS //
+    Route::prefix('/class-rooms')->group(function () {
+        Route::get('/', [ClassRoomController::class, 'index'])->name('classes.index');
+        Route::get('/create', [ClassRoomController::class, 'create'])->name('classes.create');
+        Route::post('/create', [ClassRoomController::class, 'store'])->name('classes.store');
+        Route::get('/edit/{classRoom}', [ClassRoomController::class, 'edit'])->name('classes.edit');
+        Route::put('/edit/{classRoom}', [ClassRoomController::class, 'update'])->name('classes.update');
+        Route::delete('/delete/{classRoom}', [ClassRoomController::class, 'destroy'])->name('classes.delete');
     });
 
 });
