@@ -43,9 +43,8 @@ class TeacherController extends Controller
             return redirect()->back()->with('error', 'کاربر مورد نظر درحال حاضر برای انتصاب به عنوان استاد درخواست خود را ارسال کرده است');
         }
 
-        if ($user->is_admin == 1)
-        {
-            return redirect()->route('users.index')->with('error','کاربر مورد نظر مدیر میباشد و نمیتواند به عنوان استاد انتخاب گردد');
+        if ($userObj->is_admin == 1) {
+            return redirect()->route('users.index')->with('error', 'کاربر مورد نظر مدیر میباشد و نمیتواند به عنوان استاد انتخاب گردد');
         }
         $docData = [
             'major' => $request->get('major'),
