@@ -37,7 +37,9 @@
                             <td>{{ $user->fullName() }}</td>
                             <td>{{ $user->email ?? 'ندارد' }}</td>
                             <td>{{ $user->phone ?? 'ندارد' }}</td>
-                            <td>کاربر عادی</td>
+                            <td>
+                                {{ $user->is_admin == 1 ? 'مدیر' : 'کاربر عادی' }}
+                            </td>
                             <td>
                                 <div class="row">
                                     <div class="col-md-4">

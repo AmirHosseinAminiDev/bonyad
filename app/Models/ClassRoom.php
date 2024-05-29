@@ -20,7 +20,10 @@ class ClassRoom extends Model
         'girls'
     ];
 
-    public function teacher()
+    /**
+     * @return BelongsTo
+     */
+    public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
     }

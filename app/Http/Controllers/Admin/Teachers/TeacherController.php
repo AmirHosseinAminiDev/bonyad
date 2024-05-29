@@ -7,6 +7,7 @@ use App\Enums\TeachersStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,13 +38,14 @@ class TeacherController extends Controller
      */
     public function store(Request $request, User $user)
     {
-//        dd($request->all());
-        DB::table('master_requests')->truncate();
-        DB::table('documents')->truncate();
-        DB::table('teachers')->truncate();
         $userObj = $this->findUser($request->get('user'));
         if ($userObj->masterRequest) {
             return redirect()->back()->with('error', 'کاربر مورد نظر درحال حاضر برای انتصاب به عنوان استاد درخواست خود را ارسال کرده است');
+        }
+
+        if ($user->is_admin == 1)
+        {
+            return redirect()->route('users.index')->with('error','کاربر مورد نظر مدیر میباشد و نمیتواند به عنوان استاد انتخاب گردد');
         }
         $docData = [
             'major' => $request->get('major'),
@@ -148,9 +150,11 @@ class TeacherController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Teacher $teacher)
+    public function destroy(Teacher $teacher): RedirectResponse
     {
-        //
+        $teacher->classes()->delete();
+        $teacher->delete();
+        return redirect()->route('teachers.index')->with('success', 'استاد با موفقیت حذف شد');
     }
 
     public function status(Teacher $teacher)

@@ -88,6 +88,8 @@ class UserController extends Controller
         if (auth()->user()->id == $user->id) {
             Auth::logout();
         }
+        $user->masterRequest()->delete();
+        $user->teacher()->delete();
         $user->delete();
         return redirect()->back()->with('success', 'کاربر مورد نظر حذف شد');
     }

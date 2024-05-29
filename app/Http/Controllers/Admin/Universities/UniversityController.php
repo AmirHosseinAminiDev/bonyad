@@ -90,6 +90,7 @@ class UniversityController extends Controller
      */
     public function destroy(University $university)
     {
+        $university->classes();
         $university->delete();
         return redirect()->route('universities.index')->with('success', 'حذف دانشگاه با موفقیت انجام شد');
     }

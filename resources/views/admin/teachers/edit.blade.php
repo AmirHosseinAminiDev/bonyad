@@ -3,6 +3,12 @@
 @push('select')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/select2/select2.min.css') }}">
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
 @endpush
 @section('content')
     <!-- Main content -->
@@ -22,7 +28,7 @@
                             <select name="user" id="" class="form-control select2">
                                 @forelse($users as $user)
                                     <option
-                                            value="{{ $user->id }}" {{ $teacher->user->id == $user->id ? 'selected' : '' }}>{{ $user->fullName() }}
+                                        value="{{ $user->id }}" {{ $teacher->user->id == $user->id ? 'selected' : '' }}>{{ $user->fullName() }}
                                         - {{ $user->national_code ?? 'ندارد' }}</option>
                                 @empty
                                     <option value="" disabled>هیچ کاربری یافت نشد</option>
@@ -64,19 +70,19 @@
                         <label for="">سطح تحصیلات</label>
                         <select name="education_level" id="" class="form-control">
                             <option value="{{ \App\Enums\EducationLevels::KARDANI->value }}"
-                                    {{ $teacher->user->masterRequest->document->education_level == \App\Enums\EducationLevels::KARDANI->value ? 'selected' : '' }}>
+                                {{ $teacher->user->masterRequest->document->education_level == \App\Enums\EducationLevels::KARDANI->value ? 'selected' : '' }}>
                                 کاردانی
                             </option>
                             <option value="{{ \App\Enums\EducationLevels::KARSHENASI->value }}"
-                                    {{ $teacher->user->masterRequest->document->education_level == \App\Enums\EducationLevels::KARSHENASI->value ? 'selected' : '' }}
+                                {{ $teacher->user->masterRequest->document->education_level == \App\Enums\EducationLevels::KARSHENASI->value ? 'selected' : '' }}
                             >کارشناسی
                             </option>
                             <option value="{{ \App\Enums\EducationLevels::ARSHAD->value }}"
-                                    {{ $teacher->user->masterRequest->document->education_level == \App\Enums\EducationLevels::ARSHAD->value ? 'selected' : '' }}
+                                {{ $teacher->user->masterRequest->document->education_level == \App\Enums\EducationLevels::ARSHAD->value ? 'selected' : '' }}
                             >کارشناسی ارشد
                             </option>
                             <option value="{{ \App\Enums\EducationLevels::DR->value }}"
-                                    {{ $teacher->user->masterRequest->document->education_level == \App\Enums\EducationLevels::DR->value ? 'selected' : '' }}
+                                {{ $teacher->user->masterRequest->document->education_level == \App\Enums\EducationLevels::DR->value ? 'selected' : '' }}
                             >دکتری
                             </option>
                         </select>
@@ -87,15 +93,15 @@
                         <label for="">وضعیت اشتغال</label>
                         <select name="job_status" class="form-control">
                             <option value="{{ \App\Enums\JobStatus::EMPLOYEE->value }}"
-                                    {{ $teacher->user->masterRequest->document->job_status == \App\Enums\JobStatus::EMPLOYEE->value ? 'selected' : '' }}
+                                {{ $teacher->user->masterRequest->document->job_status == \App\Enums\JobStatus::EMPLOYEE->value ? 'selected' : '' }}
                             >شاغل
                             </option>
                             <option value="{{ \App\Enums\JobStatus::RETIRED->value }}"
-                                    {{ $teacher->user->masterRequest->document->job_status == \App\Enums\JobStatus::RETIRED->value ? 'selected' : '' }}
+                                {{ $teacher->user->masterRequest->document->job_status == \App\Enums\JobStatus::RETIRED->value ? 'selected' : '' }}
                             >بازنشسته
                             </option>
                             <option value="{{ \App\Enums\JobStatus::FREE->value }}"
-                                    {{ $teacher->user->masterRequest->document->job_status == \App\Enums\JobStatus::FREE->value ? 'selected' : '' }}
+                                {{ $teacher->user->masterRequest->document->job_status == \App\Enums\JobStatus::FREE->value ? 'selected' : '' }}
                             >بیکار
                             </option>
                         </select>
@@ -125,11 +131,11 @@
                         <label for="">وضعیت تاهل</label>
                         <select name="marriage_status" class="form-control">
                             <option value="{{ \App\Enums\MarriageStatus::SINGLE->value }}"
-                                    {{ $teacher->user->masterRequest->document->marriage_status == \App\Enums\MarriageStatus::SINGLE->value ? 'selected' : '' }}
+                                {{ $teacher->user->masterRequest->document->marriage_status == \App\Enums\MarriageStatus::SINGLE->value ? 'selected' : '' }}
                             >مجرد
                             </option>
                             <option value="{{ \App\Enums\MarriageStatus::MARRIED->value }}"
-                                    {{ $teacher->user->masterRequest->document->marriage_status == \App\Enums\MarriageStatus::MARRIED->value ? 'selected' : '' }}
+                                {{ $teacher->user->masterRequest->document->marriage_status == \App\Enums\MarriageStatus::MARRIED->value ? 'selected' : '' }}
                             >متاهل
                             </option>
                         </select>
@@ -166,6 +172,48 @@
             <!-- /.card -->
             <button class="btn btn-success m-3" type="submit">ثبت</button>
         </form>
+
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">لیست کلاس‌های استاد</h3>
+                <button onclick="exportTableToExcel()" class="btn btn-success">خروجی اکسل</button>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered" id="classTable">
+                    <thead>
+                    <tr>
+                        <th>نام استاد</th>
+                        <th>نام دانشگاه تدریس</th>
+                        <th>نام درس</th>
+                        <th>تاریخ شروع کلاس</th>
+                        <th>تاریخ پایان کلاس</th>
+                        <th>تعداد دانشجویان دختر</th>
+                        <th>تعداد دانشجویان پسر</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($teacher->classes as $c)
+                        <tr>
+                            <td>{{ $teacher->user->fullName() }}</td>
+                            <td>{{ $c->university->name }}</td>
+                            <td>{{ $c->name }}</td>
+                            <td>{{ jdate($c->start_date)->format('Y/m/d') }}</td>
+                            <td>{{ jdate($c->end_date)->format('Y/m/d') }}</td>
+                            <td>{{ $c->boys }}</td>
+                            <td>{{ $c->girls }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            هیچ داده ای یافت نشد
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
     </section>
     <!-- /.content -->
 @endsection
@@ -174,6 +222,51 @@
     <script src="{{ asset('admin/plugins/select2/select2.full.min.js') }}"></script>
 @endpush
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+    <script>
+        function exportTableToExcel() {
+            const table = document.getElementById('classTable');
+            const wb = XLSX.utils.table_to_book(table);
+
+            // Add border to the cells
+            const sheetName = wb.SheetNames[0];
+            const sheet = wb.Sheets[sheetName];
+
+            var range = XLSX.utils.decode_range(sheet['!ref']);
+            for (var R = range.s.r; R <= range.e.r; ++R) {
+                for (var C = range.s.c; C <= range.e.c; ++C) {
+                    var cell_address = { c: C, r: R };
+                    var cell = sheet[XLSX.utils.encode_cell(cell_address)];
+                    if (cell) {
+                        cell.s = {
+                            border: {
+                                top: { style: "thin", color: { auto: 1 } },
+                                bottom: { style: "thin", color: { auto: 1 } },
+                                left: { style: "thin", color: { auto: 1 } },
+                                right: { style: "thin", color: { auto: 1 } }
+                            }
+                        };
+                    }
+                }
+            }
+
+            // Add the border style to the sheet
+            sheet['!rows'] = [];
+            for (var R = range.s.r; R <= range.e.r; ++R) {
+                sheet['!rows'].push({ hpx: 20 }); // Set row height
+            }
+
+            // Set metadata for the Excel file
+            wb.Props = {
+                Title: 'نام استاد: }}{{ $teacher->user->fullName() }}',
+                Author: 'Your Name',
+                CreatedDate: new Date()
+            };
+
+            XLSX.writeFile(wb, 'class_data.xlsx');
+        }
+    </script>
     <script>
         $(function () {
             //Initialize Select2 Elements
